@@ -103,24 +103,28 @@ export default function ContactAnimation() {
                         </svg>
                     </a>
 
-                    {/* Perimeter Nodes */}
+                    {/* Perimeter Nodes — outer div handles position+centering, inner motion.div handles only rotation */}
                     {links.map((link) => (
-                        <motion.div
+                        <div
                             key={link.title}
-                            style={{ rotate: iconRotation, position: "absolute", ...link.style, width: "80px", height: "80px", zIndex: 20 }}
+                            style={{ position: "absolute", ...link.style, width: "80px", height: "80px", zIndex: 20 }}
                         >
-                            <a
-                                href={link.href}
-                                target={link.href.startsWith("mailto") ? "_self" : "_blank"}
-                                rel="noopener noreferrer"
-                                title={link.title}
-                                onClick={e => e.stopPropagation()}
-                                className={`w-full h-full bg-slate-900 ${link.border} border-4 rounded-full flex items-center justify-center ${link.hover} hover:scale-125 transition-all duration-300 ${link.shadow} cursor-pointer`}
-                                style={{ display: "flex" }}
+                            <motion.div
+                                style={{ rotate: iconRotation, width: "100%", height: "100%" }}
                             >
-                                {link.icon}
-                            </a>
-                        </motion.div>
+                                <a
+                                    href={link.href}
+                                    target={link.href.startsWith("mailto") ? "_self" : "_blank"}
+                                    rel="noopener noreferrer"
+                                    title={link.title}
+                                    onClick={e => e.stopPropagation()}
+                                    className={`w-full h-full bg-slate-900 ${link.border} border-4 rounded-full flex items-center justify-center ${link.hover} hover:scale-125 transition-all duration-300 ${link.shadow} cursor-pointer`}
+                                    style={{ display: "flex" }}
+                                >
+                                    {link.icon}
+                                </a>
+                            </motion.div>
+                        </div>
                     ))}
 
                 </motion.div>
