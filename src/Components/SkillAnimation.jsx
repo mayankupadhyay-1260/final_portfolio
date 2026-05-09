@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion'
 import './homepage.css'
 
 const BOGGIES = [
@@ -19,6 +19,29 @@ const TOTAL_W = BOGGIES.length * (BW + GAP) + 80;
 const START_X = SVG_W + 60;
 const END_X = -TOTAL_W - 60;
 const TRAVEL = START_X - END_X;
+
+// Standalone component that subscribes to the motion value and applies
+// the angle as a proper SVG rotate(angle, cx, cy) transform — 100% production safe.
+function WheelGroup({ wx, wy, wr, color, wheelAngle }) {
+    const [angle, setAngle] = useState(0)
+    useMotionValueEvent(wheelAngle, "change", (v) => setAngle(v))
+    const spokes = [0, 60, 120].map(deg => {
+        const rad = deg * Math.PI / 180
+        return {
+            x1: wx + Math.cos(rad) * (wr - 4), y1: wy + Math.sin(rad) * (wr - 4),
+            x2: wx - Math.cos(rad) * (wr - 4), y2: wy - Math.sin(rad) * (wr - 4),
+        }
+    })
+    return (
+        <g transform={`rotate(${angle}, ${wx}, ${wy})`}>
+            <circle cx={wx} cy={wy} r={wr} fill="#111" stroke={color} strokeWidth={2.5} />
+            {spokes.map((s, i) => (
+                <line key={i} x1={s.x1} y1={s.y1} x2={s.x2} y2={s.y2} stroke={color} strokeWidth={1.5} opacity={0.8} />
+            ))}
+            <circle cx={wx} cy={wy} r={5} fill={color} />
+        </g>
+    )
+}
 
 export default function SkillAnimation() {
     const containerRef = useRef(null)
@@ -45,7 +68,7 @@ export default function SkillAnimation() {
     const gridY = useTransform(scrollYProgress, [0.95, 1], [20, 0])
 
     return (
-        <div ref={containerRef} className="w-full h-[300vh] relative z-10 font-mono">
+        <div ref={containerRef} className="w-full h-[400vh] relative z-10 font-mono">
             {/* The sticky viewport that holds the train track */}
             <div className="w-full h-screen sticky top-0 flex flex-col items-center justify-center bg-transparent overflow-hidden pt-10 border-t border-[#a855f7]/30">
 
@@ -78,7 +101,7 @@ export default function SkillAnimation() {
                     }}
                 >
 
-                    <svg viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" className="block w-full">
+                    <svg viewBox="0 0 1440 480" xmlns="http://www.w3.org/2000/svg" className="block w-full">
                         <defs>
                             <filter id="boxBlur" x="-20%" y="-20%" width="140%" height="140%">
                                 <feGaussianBlur stdDeviation="12" />
@@ -115,7 +138,7 @@ export default function SkillAnimation() {
                         <circle cx="1380" cy="110" r="1.2" fill="white" opacity=".3" />
 
                         {/* Ground */}
-                        <rect x="0" y="328" width="1440" height="72" fill="#0a0a18" />
+                        <rect x="0" y="328" width="1440" height="152" fill="#0a0a18" />
 
                         {/* Sleepers */}
                         <g>
@@ -179,18 +202,9 @@ export default function SkillAnimation() {
                                                 </>
                                             )}
 
-                                            {/* Wheels */}
+                                            {/* Wheels — using SVG-native rotate(angle, cx, cy) so origin is always correct */}
                                             {[w1x, w2x].map((wx, wIdx) => (
-                                                <motion.g key={wIdx} style={{ rotate: wheelAngle, transformOrigin: `${wx}px ${wheelY}px` }}>
-                                                    <circle cx={wx} cy={wheelY} r={WR} fill="#111" stroke={b.color} strokeWidth={2.5} />
-                                                    {[0, 60, 120].map(deg => {
-                                                        const rad = deg * Math.PI / 180;
-                                                        const x1 = wx + Math.cos(rad) * (WR - 4), y1 = wheelY + Math.sin(rad) * (WR - 4);
-                                                        const x2 = wx - Math.cos(rad) * (WR - 4), y2 = wheelY - Math.sin(rad) * (WR - 4);
-                                                        return <line key={deg} x1={x1} y1={y1} x2={x2} y2={y2} stroke={b.color} strokeWidth={1.5} opacity={0.8} />
-                                                    })}
-                                                    <circle cx={wx} cy={wheelY} r={5} fill={b.color} />
-                                                </motion.g>
+                                                <WheelGroup key={wIdx} wx={wx} wy={wheelY} wr={WR} color={b.color} wheelAngle={wheelAngle} />
                                             ))}
                                         </g>
                                     </g>
