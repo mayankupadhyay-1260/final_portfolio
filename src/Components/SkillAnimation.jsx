@@ -3,11 +3,13 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import './homepage.css'
 
 const BOGGIES = [
-    { label: "ARSENAL", color: "#FF6B35", glow: "rgba(255,107,53,0.6)", isEngine: true },
+    { label: "SKILLS", color: "#FF6B35", glow: "rgba(255,107,53,0.6)", isEngine: true },
     { label: "MERN", color: "#61DAFB", glow: "rgba(97,218,251,0.6)" },
     { label: "Python", color: "#FFD43B", glow: "rgba(255,212,59,0.6)" },
-    { label: "Docker", color: "#2496ED", glow: "rgba(36,150,237,0.6)" },
-    { label: "Git/GitHub", color: "#F05032", glow: "rgba(240,80,50,0.6)" },
+    { label: "C++", color: "#00599C", glow: "rgba(0,89,156,0.6)" },
+    { label: "REST APIs", color: "#E34F26", glow: "rgba(227,79,38,0.6)" },
+    { label: "MySQL", color: "#00758F", glow: "rgba(0,117,143,0.6)" },
+    { label: "Git & GitHub", color: "#F05032", glow: "rgba(240,80,50,0.6)" },
 ];
 
 const BW = 180, BH = 100, WR = 22, GAP = 18;

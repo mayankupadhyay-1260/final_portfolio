@@ -3,6 +3,9 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import './homepage.css'
 import mypic from '../assets/mypic.jpg'
 import SkillAnimation from './SkillAnimation'
+import ExperienceAnimation from './ExperienceAnimation'
+import ResumeAnimation from './ResumeAnimation'
+import ContactAnimation from './ContactAnimation'
 
 export default function Homepage({ onGoHome }) {
     const profileRef = useRef(null)
@@ -88,31 +91,14 @@ export default function Homepage({ onGoHome }) {
                 {/* 3. Skills Compartment (Train Animation, fully integrated with scroll) */}
                 <SkillAnimation />
 
-                <div className="flex-1 w-full max-w-6xl mx-auto px-6 py-12 flex flex-col space-y-32 mt-32">
+                {/* 4. Experience / DSA Tree Compartment */}
+                <ExperienceAnimation />
 
-                    {/* 4. Experience Compartment */}
-                    <motion.section
-                        initial={{ opacity: 0, y: 80 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="w-full min-h-[40vh] border border-dashed border-orange-500/30 rounded-2xl flex items-center justify-center bg-black/20 backdrop-blur-sm"
-                    >
-                        <h3 className="text-3xl text-orange-300 font-semibold tracking-wider">EXPERIENCE SECTION</h3>
-                    </motion.section>
+                {/* 5. Resume Compartment (Paper Plane Animation) */}
+                <ResumeAnimation />
 
-                    {/* 5. Education Compartment */}
-                    <motion.section
-                        initial={{ opacity: 0, y: 80 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="w-full min-h-[40vh] border border-dashed border-yellow-500/30 rounded-2xl flex items-center justify-center bg-black/20 backdrop-blur-sm mb-20"
-                    >
-                        <h3 className="text-3xl text-yellow-300 font-semibold tracking-wider">EDUCATION SECTION</h3>
-                    </motion.section>
-
-                </div>
+                {/* 6. Contact Ladder Compartment */}
+                <ContactAnimation />
             </motion.div>
         </motion.div>
     )

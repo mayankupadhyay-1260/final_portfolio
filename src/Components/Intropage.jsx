@@ -8,12 +8,12 @@ const Homepage = lazy(() => import('./Homepage'))
 
 export default function Intropage() {
     const [isSnapped, setIsSnapped] = useState(() => {
-        const saved = localStorage.getItem('portfolio_isSnapped');
+        const saved = sessionStorage.getItem('portfolio_isSnapped');
         return saved === 'true';
     });
 
     useEffect(() => {
-        localStorage.setItem('portfolio_isSnapped', isSnapped.toString());
+        sessionStorage.setItem('portfolio_isSnapped', isSnapped.toString());
     }, [isSnapped]);
     const [isSnapping, setIsSnapping] = useState(false);
 
