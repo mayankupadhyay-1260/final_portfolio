@@ -1,0 +1,34 @@
+/* homepage.css */
+
+.homepage-container {
+    /* Avengers Endgame theme: dark cosmic purple/black blending into soul-stone orangish background */
+    /* Made slightly opaque/dark so content is highly readable */
+    background: linear-gradient(135deg, rgba(15, 12, 25, 0.95) 0%, rgba(45, 15, 35, 0.92) 50%, rgba(120, 50, 15, 0.88) 100%);
+    background-color: #000; /* Fallback base */
+    min-height: 100vh;
+    width: 100%;
+    color: #ffffff;
+    padding: 2rem;
+}
+
+/* Font sizes and dimensions are kept here as requested for easy modification */
+.homepage-title {
+    font-size: 64px;
+    letter-spacing: 4px;
+}
+
+.homepage-subtitle {
+    font-size: 24px;
+    line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .homepage-title {
+        font-size: 40px;
+        letter-spacing: 2px;
+    }
+    .homepage-subtitle {
+        font-size: 18px;
+    }
+}
