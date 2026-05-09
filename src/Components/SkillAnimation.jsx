@@ -13,7 +13,7 @@ const BOGGIES = [
 ];
 
 const BW = 180, BH = 100, WR = 22, GAP = 18;
-const TRACK_Y = 320;
+const TRACK_Y = 240;
 const SVG_W = 1440;
 const TOTAL_W = BOGGIES.length * (BW + GAP) + 80;
 const START_X = SVG_W + 60;
@@ -96,12 +96,13 @@ export default function SkillAnimation() {
                 <div
                     className="w-full relative overflow-hidden mt-8 max-w-none"
                     style={{
+                        minHeight: '260px',
                         WebkitMaskImage: 'linear-gradient(to right, black 0%, black 80%, transparent 100%)',
                         maskImage: 'linear-gradient(to right, black 0%, black 80%, transparent 100%)'
                     }}
                 >
 
-                    <svg viewBox="0 0 1440 480" xmlns="http://www.w3.org/2000/svg" className="block w-full">
+                    <svg viewBox="0 0 1440 300" xmlns="http://www.w3.org/2000/svg" className="block w-full">
                         <defs>
                             <filter id="boxBlur" x="-20%" y="-20%" width="140%" height="140%">
                                 <feGaussianBlur stdDeviation="12" />
@@ -138,7 +139,7 @@ export default function SkillAnimation() {
                         <circle cx="1380" cy="110" r="1.2" fill="white" opacity=".3" />
 
                         {/* Ground */}
-                        <rect x="0" y="328" width="1440" height="152" fill="#0a0a18" />
+                        <rect x="0" y="248" width="1440" height="52" fill="#0a0a18" />
 
                         {/* Sleepers */}
                         <g>
