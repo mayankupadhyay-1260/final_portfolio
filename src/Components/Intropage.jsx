@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect, Suspense, lazy } from 'react'
 import "./intropage.css"
 import snapAudioFile from '../assets/thanos-snap-sound-effect.mp3'
+import bgImage from '/bg.png'
+import gauntletImage from '/gauntlet.png'
 
 // Lazy load the Homepage component for better performance on long pages
 const Homepage = lazy(() => import('./Homepage'))
@@ -128,7 +130,7 @@ export default function Intropage() {
                         {/* Tech Background Image */}
                         <div
                             className="absolute inset-0 z-0 bg-cover bg-center"
-                            style={{ backgroundImage: `url('/bg.png')` }}
+                            style={{ backgroundImage: `url(${bgImage})` }}
                         >
                             {/* Dark overlay for readability */}
                             <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px]" />
@@ -174,7 +176,7 @@ export default function Intropage() {
                             <span className="text-xs uppercase tracking-widest mb-3 text-yellow-400 font-semibold drop-shadow-[0_0_8px_rgba(234,179,8,0.8)]">Snap to Enter</span>
 
                             <motion.img
-                                src="/gauntlet.png"
+                                src={gauntletImage}
                                 alt="Thanos Gauntlet"
                                 className="w-24 h-24 object-contain"
                                 style={{ mixBlendMode: 'screen', originY: 1 }}
